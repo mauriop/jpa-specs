@@ -4,8 +4,10 @@ import io.reflectoring.specification.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.data.jpa.domain.Specification.where;
@@ -34,7 +36,7 @@ public class CustomProductRepository {
 
 
     public List<Product> getQueryResult(List<Filter> filters) {
-        if (filters.size() > 0) {
+        if (!CollectionUtils.isEmpty(filters)) {
             return productRepository.findAll(getSpecificationFromFilters(filters));
         } else {
             return productRepository.findAll();
